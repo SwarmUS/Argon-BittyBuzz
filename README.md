@@ -1,6 +1,8 @@
-# Argon_BittyBuzz
+# Argon-BittyBuzz
 
 An implementation of the BittyBuzz Virtual Machine (BBVM)
+
+For more information about Buzz and BittyBuzz see https://github.com/MISTLab/BittyBuzz
 
 #### ```/src``` folder:  
 This is the source folder that contains the firmware files for your project. It should *not* be renamed. 
