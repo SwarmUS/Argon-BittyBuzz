@@ -1,5 +1,5 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef BBZZ_CONFIG_H
+#define BBZZ_CONFIG_H
 
 /**
  * @brief Total size of heap in bytes.
@@ -30,7 +30,7 @@
 /**
  * @brief Maximum number of neighbors.
  */
-#define BBZNEIGHBORS_CAP 15
+#define BBZNEIGHBORS_CAP 15BBZZ_
 
 
 /**
@@ -71,9 +71,9 @@
 #define BBZNEIGHBORS_MARK_TIME 4
 
 /**
- * @brief Whether to compile in debug mode.
+ * @brief Whether to compile in DEBUG_VM mode.
  */
-#define DEBUG
+#define DEBUG_VM
 
 // ==============================
 // =  FEATURE-DISABLING MACROS  =
@@ -97,7 +97,7 @@
 /**
  * @brief Whether to disable the neighbor structure.
  */
-//#define BBZ_DISABLE_NEIGHBORS
+#define BBZ_DISABLE_NEIGHBORS
 
 /**
  * @brief Whether to disable the stigmergy structure.
@@ -127,4 +127,4 @@
  */
 #define BBZ_DISABLE_SWARMLIST_BROADCASTS
 
-#endif // !CONFIG_H
+#endif // !BBZZ_CONFIG_H

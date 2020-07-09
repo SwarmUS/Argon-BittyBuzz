@@ -2,8 +2,7 @@
 //       THIS IS A GENERATED FILE - DO NOT EDIT       //
 /******************************************************/
 
-#include "Particle.h"
-#line 1 "/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/argon/src/argon.ino"
+#line 1 "/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/Argon-BittyBuzz/src/argon.ino"
 /*
  * Project argon
  * Description:
@@ -12,13 +11,14 @@
  */
 
 #include "bbzparticle.h"
+#include "Particle.h"
 
 void bzz_print_number();
 void bbz_delay();
 void setup();
 void bbz_setup();
 void loop();
-#line 10 "/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/argon/src/argon.ino"
+#line 11 "/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/Argon-BittyBuzz/src/argon.ino"
 void bzz_print_number(){
     bbzvm_assert_lnum(1);
 
@@ -41,9 +41,12 @@ void setup() {
 
     bbz_particle_init();
 
-    vm->state = BBZVM_STATE_READY;
+}
 
-    Serial.printlnf("Registering functions %d", System.freeMemory());
+void bbz_setup() {
+    Serial.printlnf("BBVM STARTED :D ");
+
+    Serial.printlnf("Registering functions");
 
     bbzvm_function_register(BBZSTRING_ID(print), bzz_print_number);
 
@@ -52,16 +55,13 @@ void setup() {
 
 
     Serial.printlnf("INIT DONE");
-}
 
-void bbz_setup() {
-    Serial.printlnf("BBVM STARTED :D ");
 }
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
 
-    //bbz_particle_start(NULL);
+    bbz_particle_start(NULL);
     Serial.printlnf("DEVICE CRASHED");
 
 }

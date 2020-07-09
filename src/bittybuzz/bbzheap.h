@@ -93,7 +93,7 @@ typedef struct PACKED bbzheap_t {
     uint8_t data[BBZHEAP_SIZE]; /**< @brief Data buffer */
 } bbzheap_t;
 
-#ifdef DEBUG
+#ifdef DEBUG_VM
 void bbzheap_print();
 #endif
 
@@ -351,7 +351,7 @@ void bbzheap_gc(bbzheap_idx_t* st,
 #define bbzheap_tseg_makeinvalid(s) (s).mdata &= ~BBZHEAP_SEG_MASK_VALID
 
 /**
- * @brief Prints the heap's contents for debugging.
+ * @brief Prints the heap's contents for DEBUG_VMging.
  */
 #ifdef BBZCROSSCOMPILING
 #define bbzheap_print()

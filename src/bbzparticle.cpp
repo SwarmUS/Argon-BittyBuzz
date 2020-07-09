@@ -3,6 +3,8 @@
 #include "bzzsymbols.h"
 
 bbzvm_t bbz_vm_obj;
+uint8_t bbzmsg_buf[11];
+bbzmsg_payload_t bbz_payload_buf;
 
 uint8_t buf[4];
 const uint8_t* bbzkilo_bcodeFetcher(bbzpc_t offset, uint8_t size) {
@@ -35,6 +37,8 @@ void bbzkilo_err_receiver(bbzvm_error errcode){
 void bbz_particle_init(){
     Serial.begin(9600);
     vm = &bbz_vm_obj;
+    // Allocation for the BBVM
+    bbzringbuf_construct(&bbz_payload_buf, bbzmsg_buf, 1, 11);
 
 }
 
@@ -43,14 +47,11 @@ void bbz_particle_start(void (*setup)(void)){
     bbzvm_set_bcode(bbzkilo_bcodeFetcher, pgm_read_word((uint16_t*)&bcode_size));
     bbzvm_set_error_receiver(bbzkilo_err_receiver);
     setup();
-    if (vm->state == BBZVM_STATE_READY) {
-        bbzvm_step();
-    }
-    else {
-        vm->state = BBZVM_STATE_READY;
-        bbzkilo_func_call(__BBZSTRID_init);
-    }
 
+    vm->state = BBZVM_STATE_READY;
+    bbzkilo_func_call(__BBZSTRID_init);
+
+    bbzvm_step();
     while(vm->state != BBZVM_STATE_ERROR){
         if (vm->state != BBZVM_STATE_ERROR) {
             bbzvm_process_inmsgs();

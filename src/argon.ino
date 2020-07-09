@@ -6,6 +6,7 @@
  */
 
 #include "bbzparticle.h"
+#include "Particle.h"
 
 void bzz_print_number(){
     bbzvm_assert_lnum(1);
@@ -29,6 +30,11 @@ void setup() {
 
     bbz_particle_init();
 
+}
+
+void bbz_setup() {
+    Serial.printlnf("BBVM STARTED :D ");
+
     Serial.printlnf("Registering functions");
 
     bbzvm_function_register(BBZSTRING_ID(print), bzz_print_number);
@@ -38,16 +44,13 @@ void setup() {
 
 
     Serial.printlnf("INIT DONE");
-}
 
-void bbz_setup() {
-    Serial.printlnf("BBVM STARTED :D ");
 }
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
 
-    //bbz_particle_start(NULL);
+    bbz_particle_start(NULL);
     Serial.printlnf("DEVICE CRASHED");
 
 }

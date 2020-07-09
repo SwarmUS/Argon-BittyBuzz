@@ -1,5 +1,5 @@
-#include "Particle.h"
 #include "bbzvm.h"
+#include "bsp/log.h"
 
 bbzvm_t* vm; // Global extern variable 'vm'.
 
@@ -70,7 +70,7 @@ void bbzvm_clear_stack() {
 extern char* _state_desc[];
 extern char* _error_desc[];
 extern char* _instr_desc[];
-#if defined(DEBUG) && !defined(BBZ_XTREME_MEMORY)
+#if defined(DEBUG_VM) && !defined(BBZ_XTREME_MEMORY)
 char* _state_desc[] = {"BBZVM_STATE_NOCODE", "BBZVM_STATE_READY", "BBZVM_STATE_STOPPED", "BBZVM_STATE_DONE", "BBZVM_STATE_ERROR",
                        "BBZVM_STATE_COUNT"};
 char* _error_desc[] = {"BBZVM_ERROR_NONE", "BBZVM_ERROR_INSTR", "BBZVM_ERROR_STACK", "BBZVM_ERROR_LNUM", "BBZVM_ERROR_PC",
@@ -81,17 +81,17 @@ char* _instr_desc[] = {"NOP", "DONE", "PUSHNIL", "DUP", "POP", "RET0", "RET1", "
                        "UNM", "AND", "OR", "NOT", "EQ", "NEQ", "GT", "GTE", "LT", "LTE", "GLOAD", "GSTORE", "PUSHT", "TPUT",
                        "TGET", "CALLC", "CALLS", "PUSHF", "PUSHI", "PUSHS", "PUSHCN", "PUSHCC", "PUSHL", "LLOAD", "LSTORE",
                        "JUMP", "JUMPZ", "JUMPNZ", "COUNT"};
-#endif // DEBUG && !BBZ_XTREME_MEMORY
+#endif // DEBUG_VM && !BBZ_XTREME_MEMORY
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 ALWAYS_INLINE void dftl_error_receiver(bbzvm_error errcode) {
-#ifdef DEBUG
+#ifdef DEBUG_VM
     bbzheap_print();
 #ifndef BBZ_XTREME_MEMORY
-    printf("VM:\n\tstate: %s\n\tpc: %d\n\tinstr: %s\n\terror state: %s\n", _state_desc[vm->state], vm->dbg_pc,
+    Log_Write(LOG_LEVEL_INFO, "VM:\n\tstate: %s\n\tpc: %d\n\tinstr: %s\n\terror state: %s\n", vm->state, _state_desc[vm->state], vm->dbg_pc,
            vm->bcode_fetch_fun ? _instr_desc[*vm->bcode_fetch_fun(vm->dbg_pc, 1)] : "N/A", _error_desc[errcode]);
 #endif // !BBZ_XTREME_MEMORY
-#endif // DEBUG
+#endif // DEBUG_VM
 }
 
 void bbzvm_construct(bbzrobot_id_t robot) {
@@ -203,7 +203,7 @@ static void bbzvm_exec_instr() {
     bbzpc_t instrOffset = vm->pc; // Save PC in case of error or DONE.
 
     uint8_t instr = *(*vm->bcode_fetch_fun)(vm->pc, 1);
-#ifdef DEBUG
+#ifdef DEBUG_VM
     vm->dbg_pc = vm->pc;
     vm->instr = (bbzvm_instr)instr;
 #endif
@@ -1170,24 +1170,15 @@ void bbzvm_gload() {
 
 void bbzvm_gstore() {
     // Get and pop the arguments
-    Serial.printlnf("test 4.4.1");
     bbzvm_assert_stack(2);
-    Serial.printlnf("test 4.4.2");
     bbzheap_idx_t str = bbzvm_stack_at(1);
-        Serial.printlnf("test 4.4.3");
     bbzheap_idx_t o = bbzvm_stack_at(0);
-    Serial.printlnf("test 4.4.4");
     bbzvm_assert_type(str, BBZTYPE_STRING);
-    Serial.printlnf("test 4.4.5");
     bbzvm_pop();
-    Serial.printlnf("test 4.4.6");
     bbzvm_pop();
-    Serial.printlnf("test 4.4.7");
     bbzvm_assert_state();
-    Serial.printlnf("test 4.4.8");
     // Store the value
     bbzvm_assert_exec(bbztable_set(vm->gsyms, str, o), BBZVM_ERROR_MEM);
-    Serial.printlnf("test 4.4.9");
 }
 
 /****************************************/

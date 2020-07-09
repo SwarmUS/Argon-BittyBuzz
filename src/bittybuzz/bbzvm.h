@@ -86,8 +86,8 @@ extern "C" {
         bbzvm_state state;         /**< @brief Current VM state */
         bbzvm_error error;         /**< @brief Current VM error */
         bbzrobot_id_t robot;       /**< @brief This robot's id */
-#ifdef DEBUG
-        bbzpc_t dbg_pc;            /**< @brief PC value used for debugging purpose. */
+#ifdef DEBUG_VM
+        bbzpc_t dbg_pc;            /**< @brief PC value used for DEBUG_VMging purpose. */
         bbzvm_instr instr;         /**< @brief Current instruction */
 #endif
         int16_t stackptr;          /**< @brief Stack pointer (Index of the last valid element of the stack) */

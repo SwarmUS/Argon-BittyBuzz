@@ -1,4 +1,4 @@
-/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/argon/target/1.5.2/argon//obj/./src/module_info.o: \
+/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/Argon-BittyBuzz/target/1.5.2/argon//obj/./src/module_info.o: \
  src/module_info.c ../../../dynalib/inc/module_info.inc \
  ../../../dynalib/inc/module_info.h ../../../services/inc/static_assert.h \
  /home/xavier/.particle/toolchains/gcc-arm/5.3.1/arm-none-eabi/include/assert.h \

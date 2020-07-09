@@ -1,4 +1,4 @@
-/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/argon/target/1.5.2/argon//obj/./src/newlib_stubs.o: \
+/home/xavier/Documents/UniSherbrooke/FinDeBack/Buzz_particle_argon/Argon-BittyBuzz/target/1.5.2/argon//obj/./src/newlib_stubs.o: \
  src/newlib_stubs.cpp \
  ../../../modules/shared/nRF52840/inc/user-part/newlib_stubs.inc \
  /home/xavier/.particle/toolchains/gcc-arm/5.3.1/arm-none-eabi/include/sys/types.h \
