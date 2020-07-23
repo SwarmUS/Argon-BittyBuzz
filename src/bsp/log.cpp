@@ -1,4 +1,5 @@
 #include "log.h"
+#include <stdio.h>
 #include <stdarg.h>
 
 int Log_Write(int priority, const char *format, ...){
@@ -6,13 +7,22 @@ int Log_Write(int priority, const char *format, ...){
         va_list args;
         va_start(args, format);
 
-        Serial.printlnf(format, args);
+        size_t string_size = (size_t)vsnprintf(NULL, 0, format, args)+1;
+        char* string = (char*) malloc(string_size);
+
+        if(string != NULL){
+            vsnprintf(string, string_size, format, args);
+            Serial.printlnf(string);
+            free(string);
+        }
+        else {
+            Serial.printf("Could not allocate memory for buffer");
+        }
+
         
         va_end(args);
-
         return 0;
     }
-
     return 1;
 }
 

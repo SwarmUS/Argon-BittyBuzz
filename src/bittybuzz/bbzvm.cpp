@@ -88,7 +88,7 @@ ALWAYS_INLINE void dftl_error_receiver(bbzvm_error errcode) {
 #ifdef DEBUG_VM
     bbzheap_print();
 #ifndef BBZ_XTREME_MEMORY
-    Log_Write(LOG_LEVEL_INFO, "VM:\n\tstate: %s\n\tpc: %d\n\tinstr: %s\n\terror state: %s\n", vm->state, _state_desc[vm->state], vm->dbg_pc,
+    Log_Write(LOG_LEVEL_INFO, "VM:\n\tstate: %s\n\tpc: %d\n\tinstr: %s\n\terror state: %s\n", _state_desc[vm->state], vm->dbg_pc,
            vm->bcode_fetch_fun ? _instr_desc[*vm->bcode_fetch_fun(vm->dbg_pc, 1)] : "N/A", _error_desc[errcode]);
 #endif // !BBZ_XTREME_MEMORY
 #endif // DEBUG_VM
@@ -134,6 +134,7 @@ void bbzvm_construct(bbzrobot_id_t robot) {
     bbzvstig_register();
     bbzswarm_register();
     bbzneighbors_register();
+
 }
 
 /****************************************/
@@ -700,10 +701,14 @@ void bbzvm_lload(uint16_t idx) {
 
 void bbzvm_lstore(uint16_t idx) {
     bbzheap_idx_t o = bbzvm_stack_at(0);
+    Log_Write(LOG_LEVEL_INFO, "Running lstore %d \n", vm->state);
     uint16_t size = bbzdarray_size(vm->lsyms);
+    Log_Write(LOG_LEVEL_INFO, "Running lstore %d \n", vm->state);
     while (size++ <= idx) {
+        Log_Write(LOG_LEVEL_INFO, "Running lstore %d \n", vm->state);
         bbzvm_assert_exec(bbzdarray_push(vm->lsyms, vm->nil), BBZVM_ERROR_MEM);
     }
+    Log_Write(LOG_LEVEL_INFO, "Running lstore %d \n", vm->state);
     bbzdarray_set(vm->lsyms, idx, o);
     return bbzvm_pop();
 }
@@ -751,13 +756,9 @@ void bbzvm_jumpnz(uint16_t offset) {
 /****************************************/
 
 uint8_t bbzvm_gsym_register(uint16_t sid, bbzheap_idx_t v) {
-    Serial.printlnf("Test 4.1");
     bbzvm_pushs(sid);
-    Serial.printlnf("Test 4.2");
     bbzvm_push(v);
-    Serial.printlnf("Test 4.3");
     bbzvm_gstore();
-    Serial.printlnf("Test 4.4");
     bbzvm_assert_state(0);
     return 1;
 }
@@ -875,20 +876,14 @@ void bbzvm_function_call(uint16_t fname, uint16_t argc) {
 
 bbzheap_idx_t bbzvm_function_register(int16_t fnameid, bbzvm_funp funp) {
     /* Allocate a bbzclosure_t */
-    Serial.printlnf("Test 0");
     bbzvm_pushcc(funp);
-    Serial.printlnf("Test 1");
     bbzvm_assert_state(0);
-    Serial.printlnf("Test 2");
     /* Register the closure in the global symbols */
     bbzheap_idx_t cpos = bbzvm_stack_at(0);
-    Serial.printlnf("Test 3");
     bbzvm_pop();
-    Serial.printlnf("Test 4");
     if (fnameid >= 0) {
         bbzvm_gsym_register((uint16_t)fnameid, cpos);
     }
-    Serial.printlnf("Test 5");
     /* Return the closure's position */
     return cpos;
 }

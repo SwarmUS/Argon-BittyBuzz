@@ -1,5 +1,5 @@
 #include "bbzparticle.h"
-#include "Particle.h"
+#include "bsp/log.h"
 #include "bzzsymbols.h"
 
 bbzvm_t bbz_vm_obj;
@@ -31,7 +31,7 @@ void bbz_particle_delay(uint16_t ms){
 }
 
 void bbzkilo_err_receiver(bbzvm_error errcode){
-    Serial.printlnf("ERROR %d ", errcode);
+    Log_Write(LOG_LEVEL_ERR,"ERROR %d \n", errcode);
 }
 
 void bbz_particle_init(){
@@ -44,20 +44,23 @@ void bbz_particle_init(){
 
 void bbz_particle_start(void (*setup)(void)){
     bbzvm_construct(1);
-    bbzvm_set_bcode(bbzkilo_bcodeFetcher, pgm_read_word((uint16_t*)&bcode_size));
     bbzvm_set_error_receiver(bbzkilo_err_receiver);
+
+
+    bbzvm_set_bcode(bbzkilo_bcodeFetcher, bcode_size);
     setup();
 
     vm->state = BBZVM_STATE_READY;
     bbzkilo_func_call(__BBZSTRID_init);
 
-    bbzvm_step();
     while(vm->state != BBZVM_STATE_ERROR){
         if (vm->state != BBZVM_STATE_ERROR) {
             bbzvm_process_inmsgs();
-            bbzkilo_func_call(__BBZSTRID_step);
+            bbzkilo_func_call(BBZSTRID_step);
             bbzvm_process_outmsgs();
         }
+
+        delay(500);
     }
 
 }

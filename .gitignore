@@ -1,2 +1,6 @@
 
 .vscode/
+
+target/
+
+src/argon.cpp

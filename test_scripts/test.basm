@@ -1,0 +1,40 @@
+!4
+'printnumber
+'delay
+'a
+'step
+
+	pushs 3
+	pushcn @__label_1
+	gstore
+	nop
+
+@__label_0
+	pushs 2	|1,2,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushi 0	|1,4,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	gstore	|1,5,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+
+@__exitpoint
+	done
+
+@__label_1
+	pushnil	|4,15,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushs 0	|4,15,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	gload	|4,15,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushs 2	|4,17,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	gload	|4,17,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushi 1	|4,18,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	callc	|4,18,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushs 2	|5,6,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushs 2	|5,10,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	gload	|5,10,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushi 1	|5,12,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	add	|5,13,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	gstore	|5,13,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushnil	|6,9,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushs 1	|6,9,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	gload	|6,9,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushi 100	|6,10,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	pushi 1	|6,14,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	callc	|6,14,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz
+	ret0	|7,1,/home/xavier/Documents/UniSherbrooke/FinDeBac/Buzz_particle_argon/Argon-BittyBuzz/test_scripts/test.bzz

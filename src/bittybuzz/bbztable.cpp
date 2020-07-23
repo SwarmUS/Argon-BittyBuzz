@@ -4,6 +4,7 @@
 /****************************************/
 /****************************************/
 
+
 uint8_t bbztable_get(bbzheap_idx_t t,
                      bbzheap_idx_t k,
                      bbzheap_idx_t* v) {
@@ -25,7 +26,9 @@ uint8_t bbztable_get(bbzheap_idx_t t,
             }
         }
         /* Are we done? */
-        if (!bbzheap_tseg_hasnext(sd)) return 0;
+        if (!bbzheap_tseg_hasnext(sd)) {
+            return 0;
+        }
         /* Get next segment */
         si = bbzheap_tseg_next_get(sd);
         sd = bbzheap_tseg_at(si);
@@ -50,9 +53,7 @@ uint8_t bbztable_set(bbzheap_idx_t t,
     while (1) {
         /* Go through valid keys in the segment */
         for (uint8_t i = 0; i < BBZHEAP_ELEMS_PER_TSEG; ++i) {
-            //Serial.printlnf("test 4.4.8.0.1: %d, %d, %d", BBZHEAP_ELEMS_PER_TSEG, sd->mdata, bbzheap_tseg_elem_isvalid(sd->keys[i]));
             if (!bbzheap_tseg_elem_isvalid(sd->keys[i])) {
-                //Serial.printlnf("test 4.4.8.0.1.1 WTF %d ,%d", fseg, si);
                 if (fseg < 0) {
                     /* First free slot found */
                     fseg = si;

@@ -1,0 +1,7 @@
+a = 0
+
+function step() {
+    printnumber(a)
+    a = a + 1
+    delay(100)
+}

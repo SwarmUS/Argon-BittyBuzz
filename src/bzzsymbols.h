@@ -7,13 +7,13 @@
 
 #include <inttypes.h>
 
-const uint8_t bcode[] = {4,0,37,0,0,38,18,0,29,37,1,0,38,19,0,29,0,1,5,2,37,2,0,28,36,4,0,36,1,0,33,0,0,0,0,0,28,36,244,1,36,1,0,33,0,0};
+const uint8_t bcode[] = {4,0,32,1,0,33,18,0,24,0,32,0,0,31,0,0,24,1,2,32,2,0,23,32,0,0,23,31,1,0,28,32,0,0,32,0,0,23,31,1,0,7,24,2,32,3,0,23,31,100,0,31,1,0,28,5};
 
-const uint16_t bcode_size = 46;
+const uint16_t bcode_size = 56;
 
-#define BBZSTRID_init 0
+#define BBZSTRID_a 0
 #define BBZSTRID_step 1
-#define BBZSTRID_print 2
+#define BBZSTRID_printnumber 2
 #define BBZSTRID_delay 3
 
 #endif // !ARGONCODEGEN_H
