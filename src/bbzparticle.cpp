@@ -43,9 +43,8 @@ void bbz_particle_init(){
 }
 
 void bbz_particle_start(void (*setup)(void)){
-    bbzvm_construct(1);
+    bbzvm_construct(2);
     bbzvm_set_error_receiver(bbzkilo_err_receiver);
-
 
     bbzvm_set_bcode(bbzkilo_bcodeFetcher, bcode_size);
     setup();
@@ -56,11 +55,11 @@ void bbz_particle_start(void (*setup)(void)){
     while(vm->state != BBZVM_STATE_ERROR){
         if (vm->state != BBZVM_STATE_ERROR) {
             bbzvm_process_inmsgs();
-            bbzkilo_func_call(BBZSTRID_step);
+            bbzkilo_func_call(__BBZSTRID_step);
             bbzvm_process_outmsgs();
         }
 
-        delay(500);
+        delay(100);
     }
 
 }

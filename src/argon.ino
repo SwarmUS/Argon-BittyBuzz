@@ -8,17 +8,28 @@
 #include "bbzparticle.h"
 #include "Particle.h"
 
-void bzz_print_number(){
+int pin = D7;
+
+void bzz_print_swarm_id(){
     bbzvm_assert_lnum(1);
     bbzobj_t* int_val = bbzheap_obj_at(bbzvm_locals_at(1));
 
-    Serial.printlnf("Hello world! %d", int_val->i.value);
+    Serial.printlnf("Hello from swarm id: %d", int_val->i.value);
+    bbzvm_ret0();
+}
+
+
+void bbzvm_toggle_led(){
+    bbzvm_assert_lnum(0);
+    int new_value = !digitalRead(pin);
+    Serial.printlnf("Toggled led: %d", new_value);
+    digitalWrite(pin, new_value);
+
     bbzvm_ret0();
 }
 
 void bbz_delay(){
     delay((uint16_t)bbzheap_obj_at(bbzvm_locals_at(1))->i.value);
-    Serial.printlnf("delay called");
     bbzvm_ret0();
 }
 
@@ -26,14 +37,15 @@ void bbz_delay(){
 void setup() {
 
     Serial.printlnf("Start");
-
+    pinMode(pin, OUTPUT);
     bbz_particle_init();
 
 }
 
 void bbz_setup() {
-    bbzvm_function_register(BBZSTRING_ID(printnumber), bzz_print_number);
+    bbzvm_function_register(BBZSTRING_ID(print_swarm_id), bzz_print_swarm_id);
     bbzvm_function_register(BBZSTRING_ID(delay), bbz_delay);
+    bbzvm_function_register(BBZSTRING_ID(toggle_led), bbzvm_toggle_led);
 
 }
 
